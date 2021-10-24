@@ -1,9 +1,9 @@
-import { positions } from "@mui/system";
 
 class RandVar {
     constructor(name, description) {
         this.description = description;
         this.name = name;
+        this.params = {};
     }
 
     get element() {
@@ -18,25 +18,10 @@ class RandVar {
     }
 }
 
-
-export class CategoricalVariable extends RandVar {
-    constructor(name, description, values, probs) {
+class CategoricalVariable extends RandVar {
+    constructor(name, description, valuePairs) {
         super(name, description);
-        if (!(values instanceof Array)) {
-            throw TypeError('for a categorival variable ' +
-                'values should be an array of possible values')
-        }
-        if (!(probs instanceof Array)) {
-            throw TypeError('for a categorical vairable probs ' +
-                'should be an array of possible values')
-        }
-        if (!(probs.length == values.length)) {
-            throw Error('probs and values of a categorical variable ' +
-            'should be of the same length, probs = ' + probs + 
-            ', values = ' + values)
-        }
-        this.values = values;
-        var probSum = probs.reduce((a,b) => a + b, 0);
-        this.probs = probs.map(x => x / probSum);
+        var probSum = valuePairs.reduce((a,b) => a + b[1], 0);
+        this.params.valuePairs = valuePairs.map(x => [x[0], x[1] / probSum]);
     }
 }
