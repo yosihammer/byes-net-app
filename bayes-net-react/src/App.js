@@ -6,8 +6,7 @@ import {CategoricalVariable} from './RandVar';
 
 var v1 = new CategoricalVariable('Rain', 
   'will it rain tomorrow', 
-  ['yes', 'no'],
-  [0.5, 0.5]
+  [['yes', 0.4], ['no', 0.6]]
 );
 
 const elements = [
